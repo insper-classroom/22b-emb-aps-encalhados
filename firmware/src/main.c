@@ -28,6 +28,12 @@ int divider = 0, noteDuration = 0;
 #define BUZZER_PIO_IDX			6
 #define BUZZER_PIO_IDX_MASK		(1 << BUZZER_PIO_IDX)
 
+//LED
+#define LED_PIO      PIOC
+#define LED_PIO_ID   ID_PIOC
+#define LED_IDX      8
+#define LED_IDX_MASK (1 << LED_IDX)
+
 
 
 /* flag */
@@ -37,7 +43,7 @@ volatile char butcontrol_flag;
 
 void butchange_callback(void){
 	
-	butchange_flag = 1;
+	butchange_flag = !butchange_flag;
 }
 
 void butcontrol_callback(void){
@@ -83,6 +89,9 @@ void init (void){
 	NVIC_EnableIRQ(BUTCONTROL_PIO_ID);
 	NVIC_SetPriority(BUTCHANGE_PIO_ID, 4);
 	NVIC_SetPriority(BUTCONTROL_PIO_ID, 4);
+	
+	pmc_enable_periph_clk(LED_PIO_ID);
+	pio_configure(LED_PIO, PIO_OUTPUT_0, LED_IDX_MASK, PIO_DEFAULT);
 }
 
 
@@ -142,8 +151,10 @@ void tone(int freq, int time){
 			}
 				set_buzzer();
 				delay_us(period/2);
+				pio_clear(LED_PIO,LED_IDX_MASK);
 				clear_buzzer();
 				delay_us(period/2);
+				pio_set(LED_PIO, LED_IDX_MASK);
 		}
 	} else {
 		set_buzzer();
@@ -163,22 +174,37 @@ int main (void)
   
   // Escreve na tela um circulo e um texto
 	gfx_mono_draw_filled_circle(20, 16, 16, GFX_PIXEL_SET, GFX_WHOLE);
-	gfx_mono_draw_string("mundo", 50,16, &sysfont);
+	//gfx_mono_draw_string("mundo", 50,16, &sysfont);
 
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
 		
-		  for (int thisNote = 0; thisNote < hp_notes * 2; thisNote = thisNote + 2) {
-			  // calculates the duration of each note
-			  divider = hp_melody[thisNote + 1];
-			  noteDuration = (hp_wholenote) / abs(divider);
-			  if (divider < 0) {
-				  noteDuration *= 1.5; // increases the duration in half for dotted notes
-			  }
-			  // we only play the note for 90% of the duration, leaving 10% as a pause
-			  tone(hp_melody[thisNote], noteDuration * 0.9);
-			  // Wait for the specief duration before playing the next note.
-			  delay_ms(noteDuration*0.1);
+		if(butchange_flag == 0){
+			for (int thisNote = 0; thisNote < hp_notes * 2; thisNote = thisNote + 2) {
+				// calculates the duration of each note
+				divider = hp_melody[thisNote + 1];
+				noteDuration = (hp_wholenote) / abs(divider);
+				if (divider < 0) {
+					noteDuration *= 1.5; // increases the duration in half for dotted notes
+				}
+				// we only play the note for 90% of the duration, leaving 10% as a pause
+				tone(hp_melody[thisNote], noteDuration * 0.9);
+				// Wait for the specief duration before playing the next note.
+				delay_ms(noteDuration*0.1);
+			}
+		} else{
+			for (int thisNote = 0; thisNote < mc_notes * 2; thisNote = thisNote + 2) {
+				// calculates the duration of each note
+				divider = mc_melody[thisNote + 1];
+				noteDuration = (mc_wholenote) / abs(divider);
+				if (divider < 0) {
+					noteDuration *= 1.5; // increases the duration in half for dotted notes
+				}
+				// we only play the note for 90% of the duration, leaving 10% as a pause
+				tone(mc_melody[thisNote], noteDuration * 0.9);
+				// Wait for the specief duration before playing the next note.
+				delay_ms(noteDuration*0.1);
+			}
 		}
 
 	}
