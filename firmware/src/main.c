@@ -9,6 +9,7 @@
 
 
 int divider = 0, noteDuration = 0;
+int song = 0;
 
 // Button to change the song
 #define BUTCHANGE_PIO          PIOD
@@ -172,7 +173,7 @@ void play_song(int melody[], int tempo, int notes, int wholenote){
 			noteDuration *= 1.5;
 		}
 		
-		tone(mc_melody[thisNote], noteDuration * 0.9);
+		tone(melody[thisNote], noteDuration * 0.9);
 		delay_ms(noteDuration*0.1);
 		if(butchange_flag){
 			return;
@@ -197,31 +198,20 @@ int main (void)
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
 		
-		if(butchange_flag == 0){
-			for (int thisNote = 0; thisNote < hp_notes * 2; thisNote = thisNote + 2) {
-				// calculates the duration of each note
-				divider = hp_melody[thisNote + 1];
-				noteDuration = (hp_wholenote) / abs(divider);
-				if (divider < 0) {
-					noteDuration *= 1.5; // increases the duration in half for dotted notes
-				}
-				// we only play the note for 90% of the duration, leaving 10% as a pause
-				tone(hp_melody[thisNote], noteDuration * 0.9);
-				// Wait for the specief duration before playing the next note.
-				delay_ms(noteDuration*0.1);
+ 		if(butchange_flag){
+ 			butchange_flag = 0;
+ 		} 
+		
+		if(song == 0){
+			play_song(hp_melody, hp_tempo, hp_notes, hp_wholenote);
+			//gfx_mono_draw_string("harrypotter", 50,16, &sysfont);
+			if(butchange_flag){
+				song = 1;
 			}
 		} else{
-			for (int thisNote = 0; thisNote < mc_notes * 2; thisNote = thisNote + 2) {
-				// calculates the duration of each note
-				divider = mc_melody[thisNote + 1];
-				noteDuration = (mc_wholenote) / abs(divider);
-				if (divider < 0) {
-					noteDuration *= 1.5; // increases the duration in half for dotted notes
-				}
-				// we only play the note for 90% of the duration, leaving 10% as a pause
-				tone(mc_melody[thisNote], noteDuration * 0.9);
-				// Wait for the specief duration before playing the next note.
-				delay_ms(noteDuration*0.1);
+			play_song(mc_melody, mc_tempo, mc_notes, mc_wholenote);
+			if(butchange_flag){
+				song = 0;
 			}
 		}
 
