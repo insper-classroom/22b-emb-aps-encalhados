@@ -569,6 +569,9 @@
     <Compile Include="src\config\conf_sysfont.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\hp.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\mc.h">
       <SubType>compile</SubType>
     </Compile>

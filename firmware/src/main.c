@@ -5,6 +5,7 @@
 #include "sysfont.h"
 
 #include "mc.h"
+#include "hp.h"
 
 
 int divider = 0, noteDuration = 0;
@@ -167,15 +168,15 @@ int main (void)
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
 		
-		  for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+		  for (int thisNote = 0; thisNote < hp_notes * 2; thisNote = thisNote + 2) {
 			  // calculates the duration of each note
-			  divider = melody[thisNote + 1];
-			  noteDuration = (wholenote) / abs(divider);
+			  divider = hp_melody[thisNote + 1];
+			  noteDuration = (hp_wholenote) / abs(divider);
 			  if (divider < 0) {
 				  noteDuration *= 1.5; // increases the duration in half for dotted notes
 			  }
 			  // we only play the note for 90% of the duration, leaving 10% as a pause
-			  tone(melody[thisNote], noteDuration * 0.9);
+			  tone(hp_melody[thisNote], noteDuration * 0.9);
 			  // Wait for the specief duration before playing the next note.
 			  delay_ms(noteDuration*0.1);
 		}

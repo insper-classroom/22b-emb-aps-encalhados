@@ -11,7 +11,7 @@
 
 #include "notes.h"
 
-int melody[] = {
+int mc_melody[] = {
 
 	// We Wish You a Merry Christmas
 	// Score available at https://musescore.com/user/6208766/scores/1497501
@@ -81,9 +81,9 @@ int melody[] = {
 	NOTE_F5,2, REST,4
 };
 
-int tempo = 140;
-#define notes sizeof(melody) / sizeof(melody[0]) / 2
-#define wholenote (60000 * 4) / tempo
+int mc_tempo = 140;
+#define mc_notes sizeof(mc_melody) / sizeof(mc_melody[0]) / 2
+#define mc_wholenote (60000 * 4) / mc_tempo
 
 
 
