@@ -162,6 +162,24 @@ void tone(int freq, int time){
 	}
 
 }
+
+void play_song(int melody[], int tempo, int notes, int wholenote){
+	for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+		
+		divider = melody[thisNote + 1];
+		noteDuration = (wholenote) / abs(divider);
+		if (divider < 0) {
+			noteDuration *= 1.5;
+		}
+		
+		tone(mc_melody[thisNote], noteDuration * 0.9);
+		delay_ms(noteDuration*0.1);
+		if(butchange_flag){
+			return;
+		}
+	}
+}
+
  
 
  
