@@ -22,7 +22,7 @@ TODO: Aualizar pinos
 
 ### Imagem da montagem
 
-TODO: Inserir imagem do sistema montado
+Imagem Circuito - ![alt text](./imagem_circuito)
 
 ### Vídeo do projeto
 
