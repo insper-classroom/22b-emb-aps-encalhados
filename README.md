@@ -22,7 +22,7 @@ TODO: Aualizar pinos
 
 ### Imagem da montagem
 
-Imagem Circuito - ![alt text](./imagem_circuito)
+Imagem Circuito - ![alt text](imagem_circuito)
 
 ### Vídeo do projeto
 
