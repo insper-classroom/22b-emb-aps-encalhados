@@ -22,7 +22,7 @@ TODO: Aualizar pinos
 
 ### Imagem da montagem
 
-Imagem Circuito - ![alt text](imagem_circuito)
+Imagem Circuito - https://github.com/insper-classroom/22b-emb-aps-encalhados/blob/main/Imagem_circuito.jpeg
 
 ### Vídeo do projeto
 
