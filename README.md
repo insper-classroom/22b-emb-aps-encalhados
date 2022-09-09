@@ -16,9 +16,19 @@ TODO: Aualizar pinos
 
 | Função  | PINO (ex: PA11) |
 |---------|-----------------|
-| BUZZER  |                 |
-| START   |                 |
-| SELEÇÃO |                 |
+| BUZZER  |       PA06      |
+| START   |       PC31      |
+| SELEÇÃO |       PD28      |
+| LED     |       PC08      |
+
+### Como usar o projeto
+
+Para este projeto é necessário um Buzzer, um micro controlador SAME70 e uma placa OLED1
+Funções: 
+  - Botão 1 - troca música
+  - Botão 2 - Start/Pause
+  - LED - pisca no ritmo da música 
+  - Display - nome da música sendo tocada + estado (pause/start)
 
 ### Imagem da montagem
 
