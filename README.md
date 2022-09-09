@@ -27,7 +27,11 @@ TODO: Inserir imagem do sistema montado
 ### Vídeo do projeto
 
 TODO: Inserir link para vídeo do projeto funcionando
+Link youtube - https://youtube.com/shorts/i-Amz8T4vVk?feature=share
 
 ### Músicas e Direitos autorais
 
 TODO: Listar músicas e dar crédio da onde saiu:
+Musicas retiradas do repositório: https://github.com/robsoncouto/arduino-songs/
+  - Merry Christmas - https://github.com/robsoncouto/arduino-songs/blob/master/merrychristmas/merrychristmas.ino
+  - Harry Potter - https://github.com/robsoncouto/arduino-songs/blob/master/harrypotter/harrypotter.ino
