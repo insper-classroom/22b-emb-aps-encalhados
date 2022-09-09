@@ -64,13 +64,7 @@ void init (void){
 	pmc_enable_periph_clk(BUTCONTROL_PIO_ID);
 	pmc_enable_periph_clk(BUZZER_PIO_ID);
 	
-	//pio_set_input(BUTCHANGE_PIO, BUTCHANGE_PIO_IDX_MASK, PIO_DEFAULT);
-	//pio_set_input(BUTCONTROL_PIO, BUTCONTROL_PIO_IDX_MASK, PIO_DEFAULT);
-	
 	pio_set_output(BUZZER_PIO, BUZZER_PIO_IDX_MASK, 0, 0, 0);
-	
-	//pio_pull_up(BUTCHANGE_PIO, BUTCHANGE_PIO_IDX_MASK, 1);
-	//pio_pull_up(BUTCONTROL_PIO,BUTCONTROL_PIO_IDX_MASK,1);
 	
 	pio_configure(BUTCHANGE_PIO, PIO_INPUT, BUTCHANGE_PIO_IDX_MASK, PIO_PULLUP | PIO_DEBOUNCE);
 	pio_set_debounce_filter(BUTCHANGE_PIO, BUTCHANGE_PIO_IDX_MASK, 60);
@@ -148,6 +142,7 @@ void tone(int freq, int time){
 	
 		for(int i = 0; i < pulses; i++){
 			if(butcontrol_flag == 1){
+				//gfx_mono_draw_string("Pause    ", 50, 16, &sysfont);
 				break;
 			}
 				set_buzzer();
@@ -166,13 +161,16 @@ void tone(int freq, int time){
 
 void play_song(int melody[], int tempo, int notes, int wholenote){
 	for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
-		
+		while (butcontrol_flag){
+			gfx_mono_draw_string("Pause", 50, 16, &sysfont);
+		}
 		divider = melody[thisNote + 1];
 		noteDuration = (wholenote) / abs(divider);
 		if (divider < 0) {
 			noteDuration *= 1.5;
 		}
 		
+		gfx_mono_draw_string("Play  ", 50, 16, &sysfont);
 		tone(melody[thisNote], noteDuration * 0.9);
 		delay_ms(noteDuration*0.1);
 		if(butchange_flag){
@@ -191,9 +189,6 @@ int main (void)
   // Init OLED
 	gfx_mono_ssd1306_init();
   
-  // Escreve na tela um circulo e um texto
-	gfx_mono_draw_filled_circle(20, 16, 16, GFX_PIXEL_SET, GFX_WHOLE);
-	//gfx_mono_draw_string("mundo", 50,16, &sysfont);
 
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
@@ -204,12 +199,15 @@ int main (void)
 		
 		if(song == 0){
 			play_song(hp_melody, hp_tempo, hp_notes, hp_wholenote);
-			//gfx_mono_draw_string("harrypotter", 50,16, &sysfont);
+			gfx_mono_draw_string("Christmas  ", 0, 0, &sysfont);
+			//gfx_mono_draw_string("     ", 0, 0, &sysfont);
 			if(butchange_flag){
 				song = 1;
 			}
 		} else{
 			play_song(mc_melody, mc_tempo, mc_notes, mc_wholenote);
+			gfx_mono_draw_string("HarryPotter", 0, 0, &sysfont);
+			//gfx_mono_draw_string("     ", 0, 0, &sysfont);
 			if(butchange_flag){
 				song = 0;
 			}
