@@ -16,18 +16,30 @@ TODO: Aualizar pinos
 
 | Função  | PINO (ex: PA11) |
 |---------|-----------------|
-| BUZZER  |                 |
-| START   |                 |
-| SELEÇÃO |                 |
+| BUZZER  |       PA06      |
+| START   |       PC31      |
+| SELEÇÃO |       PD28      |
+| LED     |       PC08      |
+
+### Como usar o projeto
+
+Para este projeto é necessário um Buzzer, um micro controlador SAME70 e uma placa OLED1
+Funções: 
+  - Botão 1 - troca música
+  - Botão 2 - Start/Pause
+  - LED - pisca no ritmo da música 
+  - Display - nome da música sendo tocada + estado (pause/start)
 
 ### Imagem da montagem
 
-TODO: Inserir imagem do sistema montado
+Imagem Circuito - https://github.com/insper-classroom/22b-emb-aps-encalhados/blob/main/Imagem_circuito.jpeg
 
 ### Vídeo do projeto
 
-TODO: Inserir link para vídeo do projeto funcionando
+Link youtube - https://youtube.com/shorts/i-Amz8T4vVk?feature=share
 
 ### Músicas e Direitos autorais
 
-TODO: Listar músicas e dar crédio da onde saiu:
+Musicas retiradas do repositório: https://github.com/robsoncouto/arduino-songs/
+  - Merry Christmas - https://github.com/robsoncouto/arduino-songs/blob/master/merrychristmas/merrychristmas.ino
+  - Harry Potter - https://github.com/robsoncouto/arduino-songs/blob/master/harrypotter/harrypotter.ino
