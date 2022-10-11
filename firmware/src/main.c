@@ -36,7 +36,6 @@ int song = 0;
 #define LED_IDX_MASK (1 << LED_IDX)
 
 
-
 /* flag */
 volatile char butchange_flag;
 volatile char butcontrol_flag;
@@ -142,7 +141,6 @@ void tone(int freq, int time){
 	
 		for(int i = 0; i < pulses; i++){
 			if(butcontrol_flag == 1){
-				//gfx_mono_draw_string("Pause    ", 50, 16, &sysfont);
 				break;
 			}
 				set_buzzer();
@@ -153,13 +151,13 @@ void tone(int freq, int time){
 				pio_set(LED_PIO, LED_IDX_MASK);
 		}
 	} else {
-		set_buzzer();
 		delay_ms(time);
 	}
-
 }
 
 void play_song(int melody[], int tempo, int notes, int wholenote){
+	
+	gfx_mono_draw_string("Play  ", 50, 16, &sysfont);
 	for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
 		while (butcontrol_flag){
 			gfx_mono_draw_string("Pause", 50, 16, &sysfont);
@@ -169,8 +167,6 @@ void play_song(int melody[], int tempo, int notes, int wholenote){
 		if (divider < 0) {
 			noteDuration *= 1.5;
 		}
-		
-		gfx_mono_draw_string("Play  ", 50, 16, &sysfont);
 		tone(melody[thisNote], noteDuration * 0.9);
 		delay_ms(noteDuration*0.1);
 		if(butchange_flag){
@@ -199,15 +195,13 @@ int main (void)
 		
 		if(song == 0){
 			play_song(hp_melody, hp_tempo, hp_notes, hp_wholenote);
-			gfx_mono_draw_string("Christmas  ", 0, 0, &sysfont);
-			//gfx_mono_draw_string("     ", 0, 0, &sysfont);
+			gfx_mono_draw_string(mc_name, 0, 0, &sysfont);
 			if(butchange_flag){
 				song = 1;
 			}
 		} else{
 			play_song(mc_melody, mc_tempo, mc_notes, mc_wholenote);
-			gfx_mono_draw_string("HarryPotter", 0, 0, &sysfont);
-			//gfx_mono_draw_string("     ", 0, 0, &sysfont);
+			gfx_mono_draw_string(hp_name, 0, 0, &sysfont);
 			if(butchange_flag){
 				song = 0;
 			}

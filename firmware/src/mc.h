@@ -84,7 +84,7 @@ int mc_melody[] = {
 int mc_tempo = 140;
 #define mc_notes sizeof(mc_melody) / sizeof(mc_melody[0]) / 2
 #define mc_wholenote (60000 * 4) / mc_tempo
-
+#define mc_name  "Christmas  "
 
 
 

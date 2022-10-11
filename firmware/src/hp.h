@@ -61,5 +61,6 @@ int hp_tempo = 144;
 
 #define hp_notes sizeof(hp_melody) / sizeof(hp_melody[0]) / 2
 #define hp_wholenote (60000 * 4) / hp_tempo
+#define hp_name "HarryPotter"
 
 #endif /* HP_H_ */
